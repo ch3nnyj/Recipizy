@@ -1,2 +1,2 @@
-# Recipizy
+# Easy Recipeasy
 Recipe Website
