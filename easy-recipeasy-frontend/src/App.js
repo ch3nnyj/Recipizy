@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Welcome to Recipizy!</h1>
+      <h1>Welcome to Easy Recipeasy!</h1>
     </div>
   );
 };
