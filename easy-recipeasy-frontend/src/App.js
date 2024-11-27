@@ -16,8 +16,8 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Welcome to Easy Recipeasy!</h1>
+    <div className="flex justify-center items-center h-screen">
+      <h1 className="font-bold text-4xl">Welcome to Easy Recipeasy!</h1>
     </div>
   );
 };
