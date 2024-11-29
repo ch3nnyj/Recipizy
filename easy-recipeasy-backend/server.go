@@ -5,13 +5,18 @@ import (
     "github.com/jackc/pgx/v5"
     "context"
     "log"
+    "os"
 )
 
 var db *pgx.Conn
 
 func main() {
     var err error
-	db, err = pgx.Connect(context.Background(), "postgres://chenny:Jj8458535220!@localhost:5432/easyrecipeasydb")
+
+    // Create a new file called .env and add the following line: 
+    // DATABASE_URL=postgres://username:password@localhost:5432/easyrecipeasydb
+    dbURL := os.Getenv("DATABASE_URL")
+    db, err = pgx.Connect(context.Background(), dbURL)
     if err != nil {
         log.Fatalf("Unable to connect to database: %v\n", err)
     }
