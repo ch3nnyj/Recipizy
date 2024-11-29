@@ -13,8 +13,7 @@ import (
 var db *pgx.Conn
 
 func main() {
-    // Create a new file called .env and add the following line: 
-    // DATABASE_URL=postgres://username:password@localhost:5432/easyrecipeasydb
+    // Load .env file
     err := godotenv.Load()
     if err != nil {
         // handle error

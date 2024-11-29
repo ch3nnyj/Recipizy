@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import axios from "axios";
+import GoogleLoginButton from "./components/GoogleLoginButton";
 
 const App = () => {
   const fetchHealth = async () => {
@@ -16,8 +17,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex flex-col justify-center items-center h-screen bg-gray-100">
       <h1 className="font-bold text-4xl">Welcome to Easy Recipeasy!</h1>
+      <GoogleLoginButton />
     </div>
   );
 };
