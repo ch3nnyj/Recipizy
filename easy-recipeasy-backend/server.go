@@ -3,6 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
     "github.com/jackc/pgx/v5"
+    "github.com/joho/godotenv"
+
     "context"
     "log"
     "os"
@@ -11,12 +13,15 @@ import (
 var db *pgx.Conn
 
 func main() {
-    var err error
-
     // Create a new file called .env and add the following line: 
     // DATABASE_URL=postgres://username:password@localhost:5432/easyrecipeasydb
+    err := godotenv.Load()
+    if err != nil {
+        // handle error
+    }
     dbURL := os.Getenv("DATABASE_URL")
-    db, err = pgx.Connect(context.Background(), dbURL)
+
+	db, err = pgx.Connect(context.Background(), dbURL)
     if err != nil {
         log.Fatalf("Unable to connect to database: %v\n", err)
     }
