@@ -4,10 +4,19 @@ import (
 	"github.com/gin-gonic/gin"
     "github.com/jackc/pgx/v5"
     "github.com/joho/godotenv"
+    "golang.org/x/oauth2"
+    "golang.org/x/oauth2/google"
+    "github.com/dgrijalva/jwt-go"
 
     "context"
+    "encoding/json"
+    "fmt"
     "log"
+    "net/http"
     "os"
+
+    "easy-recipeasy-backend/server"
+    "easy-recipeasy-backend/auth"
 )
 
 var db *pgx.Conn
@@ -16,8 +25,9 @@ func main() {
     // Load .env file
     err := godotenv.Load()
     if err != nil {
-        // handle error
+        log.Println("No .env file found")
     }
+
     dbURL := os.Getenv("DATABASE_URL")
 
 	db, err = pgx.Connect(context.Background(), dbURL)
@@ -43,7 +53,8 @@ func main() {
 		c.JSON(200, gin.H{"message": result})
 	})
 
-
     // Start server
-    r.Run(":8080")
+    if err := r.Run(":8080"); err != nil {
+        log.Fatalf("Failed to run server: %v\n", err)
+    }
 }
