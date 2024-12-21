@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"easy-recipeasy-backend/internal/middleware"
 )
 
 func (s *Server) RegisterRoutes() http.Handler {
@@ -17,10 +18,21 @@ func (s *Server) RegisterRoutes() http.Handler {
 		AllowCredentials: true, // Enable cookies/auth
 	}))
 
-	r.GET("/", s.HelloWorldHandler)
 
+	// OAuth routes
+    r.GET("/auth/google/login", s.HandleGoogleLogin)
+    r.GET("/auth/google/callback", s.HandleGoogleCallback)
+
+	// Other routes
+	r.GET("/", s.HelloWorldHandler)
 	r.GET("/health", s.healthHandler)
 
+	// Protected routes
+    authorized := r.Group("/")
+    authorized.Use(middleware.AuthMiddleware())
+    {
+        // Add other protected routes here
+    }
 	return r
 }
 
